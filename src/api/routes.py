@@ -161,3 +161,5 @@ def delete_favorite_planet(favorite_id,planet_id):
 def delete_favorite_people(favorite_id,people_id):
     favorite = Favorite.delete_favorite_people(favorite_id,people_id)
     return jsonify(favorites),200
+
+# De momento aprendiendo como hacer el sign out
