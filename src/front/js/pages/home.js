@@ -1,24 +1,50 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import { Link } from "react-router-dom";
 import "../../styles/home.scss";
 
-export const Home = () => {
+const Login = () => {
 	const { store, actions } = useContext(Context);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const history = useHistory();
 
-	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">{store.message || "Loading message from the backend..."}</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
-					Read documentation
-				</a>
-			</p>
-		</div>
+	useEffect(
+		() => {
+			if (store.isAuthenticate) {
+				history.push("/private");
+			}
+		},
+		[store.isAuthenticate]
 	);
+	return;
+	<div className="principal-container text-center">
+		<div className="myform">
+			<h4>Log in</h4>
+			<div className="form-group">
+				<label>Email address</label>
+				<input
+					type="email"
+					value={email}
+					onChange={e => setEmail(e.target.value)}
+					className="form-control"
+					placeholder="Your email here!"
+				/>
+			</div>
+			<div className="form-group">
+				<label>Password</label>
+				<input
+					type="password"
+					value={password}
+					onChange={e => setPassword(e.target.value)}
+					className="form-control"
+					placeholder="Your password"
+				/>
+			</div>
+			<button onClick={() => actions.sign_in(email, password)} className="btn btn-primary btn-block">
+				Submit
+			</button>
+			You are not registered? <Link to={"/sign-up"}>Sign up!</Link>{" "}
+		</div>
+	</div>;
 };
